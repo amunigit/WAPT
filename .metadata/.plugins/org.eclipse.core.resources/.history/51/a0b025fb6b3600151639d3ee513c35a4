@@ -1,0 +1,9 @@
+package ConfigClasses;
+
+public class Config {
+
+	private String configName; //Config Name
+	private String configDesc; //Config Description
+	private String targetPath; //Request Target
+	private String 
+}

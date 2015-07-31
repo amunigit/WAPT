@@ -1,0 +1,28 @@
+import java.io.IOException;
+import java.util.Scanner;
+
+import ConfigClasses.*;
+
+
+public class Main {
+
+	private Scanner in = new Scanner(System.in);
+	private ConfigLoader cL = new ConfigLoader();
+	private Config config;
+	
+	public static void main(String[] args) {
+		
+		try {
+			config = cL.getPropValues();
+			System.out.println(config.getConfigDesc());
+			
+		} catch (IOException e) {
+			System.out.println("Error!");
+		}
+	}
+
+	public static void programEnd(){
+		System.out.println("Press any key to <END>");
+		in.nextLine();
+	}
+}
