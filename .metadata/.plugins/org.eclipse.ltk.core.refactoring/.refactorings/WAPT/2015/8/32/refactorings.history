@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;BaseConfig.properties&apos; to &apos;BaseConfig.properties&apos;&#x0D;&#x0A;- Original project: &apos;WAPT&apos;&#x0D;&#x0A;- Destination element: &apos;BaseConfig.properties&apos;&#x0D;&#x0A;- Original element: &apos;BaseConfig.properties&apos;" description="Copy file" element1="Resources/BaseConfig.properties" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1438579153249" target="/WAPT/Resources/BaseConfig.properties" units="0" version="1.0"/>
+</session>
