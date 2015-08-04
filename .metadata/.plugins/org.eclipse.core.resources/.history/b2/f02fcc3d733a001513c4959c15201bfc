@@ -1,0 +1,8 @@
+#BaseConfig Properties
+configName=Html Config
+configDesc=The Html config file
+targetPath=http://www.google.com.au
+virtualClients=1
+testDuration=5
+requestType=GET
+urlParameters=search?safe=off&site=&source=hp&q=dog&oq=dog&gs_l=hp.3...1586.1826.0.1930.4.4.0.0.0.0.208.208.2-1.1.0....0...1c.1.64.hp..4.0.0.0.ycP9CZDifwc;

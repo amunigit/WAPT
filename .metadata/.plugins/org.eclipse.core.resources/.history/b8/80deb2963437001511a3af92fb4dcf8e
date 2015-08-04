@@ -1,6 +1,0 @@
-#BaseConfig Properties
-configName=Basic Config
-configDesc=Thebasicconfigfile
-targetPath=www.google.com.au
-virtualClients=1
-testDuration=5

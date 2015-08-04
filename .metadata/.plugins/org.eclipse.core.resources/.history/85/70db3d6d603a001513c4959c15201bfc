@@ -1,0 +1,17 @@
+import java.io.*;
+import java.net.*;
+
+
+public class VirtualClient {
+	private int vcID;
+	private HttpURLConnection connection = null;
+	private String httpRequestType = "";
+	private URL url = null;
+	private DataOutputStream oStream = null;
+	private InputStream iStream = null;
+	
+	public VirtualClient(int id, String urlPath, ) {
+		
+	}
+
+}

@@ -1,0 +1,31 @@
+import java.io.*;
+import java.net.*;
+
+
+public class VirtualClient {
+	private int vcID;
+	private URL url;
+	private String httpRequestType = "";
+	private HttpURLConnection connection;
+	private DataOutputStream oStream;
+	private InputStream iStream;
+	
+	public VirtualClient(int id, String urlPath, String requestType) {
+		vcID = id;
+		httpRequestType = requestType;
+		
+		try {
+			url = new URL(urlPath);
+		} catch (MalformedURLException e) {
+			System.out.println("Malformed Url");
+		}
+		try {
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod(requestType);
+		} catch (IOException e) {
+			System.out.println("Error opening Http Url Connection.");
+		}
+		
+	}
+
+}

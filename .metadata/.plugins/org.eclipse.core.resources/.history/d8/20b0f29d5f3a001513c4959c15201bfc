@@ -1,0 +1,11 @@
+import java.net.*;
+
+
+public class VirtualClient {
+	HttpURLConnection connection = null;
+
+	public VirtualClient() {
+		
+	}
+
+}

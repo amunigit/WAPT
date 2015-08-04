@@ -1,9 +1,0 @@
-package ConfigClasses;
-
-public class HTMLConfig extends Config {
-
-	public HTMLConfig(String cN, String cD, String tP, int vC, int tD) {
-		super(cN, cD, tP, vC, tD);
-	}
-
-}
