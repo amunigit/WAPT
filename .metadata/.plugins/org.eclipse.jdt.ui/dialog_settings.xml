@@ -53,15 +53,15 @@
 	<section name="FatJarPackageWizard">
 		<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
 		<item value="Main - WAPT" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
-		<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code\WAPT runnable Jar\WAPT_v0.6.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code\WAPT runnable Jar\WAPT_v0.7.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="2" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code\WAPT runnable Jar\WAPT_v0.7.jar"/>
 			<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code\WAPT runnable Jar\WAPT_v0.6.jar"/>
 			<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code\WAPT runnable Jar\WAPT_v0.5.jar"/>
 			<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code\WAPT runnable Jar\WAPT v0.5.jar"/>
 			<item value="C:\Users\Arvin\Desktop\WAPT v0.5.jar"/>
-			<item value="C:\Users\Arvin\Desktop\WAPT v0.3.jar"/>
 		</list>
 		<list key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION_HISTORY">
 			<item value="C:\Users\Arvin\Desktop\ENGG 411 Thesis Project\Project Code.xml"/>

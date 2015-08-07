@@ -1,0 +1,19 @@
+import ConfigClasses.*;
+
+public class VirtualClientGenerator {
+
+	private Thread[] virtualClientThreads;
+	private int[] responseTimeArray;
+	private HTMLConfig config;
+	
+	public VirtualClientGenerator(int noOfClients, HTMLConfig con) {
+		virtualClientThreads = new Thread[noOfClients];
+		responseTimeArray = new int[virtualClientThreads.length];
+		config = con;
+	}
+	
+	public void runGenerator(){
+		
+	}
+
+}

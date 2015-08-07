@@ -1,0 +1,8 @@
+
+public class VirtualClientGenerator {
+
+	public VirtualClientGenerator() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

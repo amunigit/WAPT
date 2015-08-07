@@ -1,0 +1,12 @@
+
+public class VirtualClientGenerator {
+
+	private VirtualClient[] virtualClientArray;
+	private int[] responseTimeArray;
+	private Config config;
+	
+	public VirtualClientGenerator() {
+		
+	}
+
+}

@@ -1,0 +1,13 @@
+import ConfigClasses.*;
+
+public class VirtualClientGenerator {
+
+	private VirtualClient[] virtualClientArray;
+	private int[] responseTimeArray;
+	private HTMLConfig config;
+	
+	public VirtualClientGenerator() {
+		
+	}
+
+}
