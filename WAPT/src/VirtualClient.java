@@ -20,6 +20,7 @@ public class VirtualClient extends Thread {
 	private long responseTimeAvg = 0;
 	private long requestsSent = 0;
 	private int sleepTime = 0;
+	private int errors = 0;
 
 	private String httpRequestType;   		//Http Request Type
 	private HttpURLConnection connection;   //Http Connection
@@ -33,7 +34,19 @@ public class VirtualClient extends Thread {
 		maxRunTime = rTime;
 		httpRequestType = requestType;
 		urlParam = urlP;
-		/*
+	}
+	
+	private void resetTimers(){
+		runTime = 0;
+		responseTimeAvg = 0;
+		requestsSent = 0;
+	}
+	
+	/**
+	 * Load connection settings
+	 * Must be run if not simulating requests via simulateSendRequest(); i.e. Calling sendRequest();
+	 */
+	private void loadConnection(){
 		//Set URL path
 		try {
 			url = new URL(urlPath);
@@ -45,16 +58,15 @@ public class VirtualClient extends Thread {
 		try {
 			connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod(httpRequestType);
+			connection.setRequestProperty("Content-Length", Integer.toString(urlParam.getBytes().length));
+			connection.setRequestProperty("Content-Language", "en-US");  
+			connection.setUseCaches(false);
+			connection.setDoOutput(true); //We want to send requests
+			//System.out.println("\n\nURL Request Type: " + httpRequestType);
+			//System.out.println("URL Parameters: " + urlParam);
 		} catch (IOException e) {
 			System.out.println("Error opening Http Url Connection.");
 		}
-
-		connection.setRequestProperty("Content-Length", Integer.toString(urlParam.getBytes().length));
-		connection.setRequestProperty("Content-Language", "en-US");  
-	    connection.setUseCaches(false); //Do not want to store cache of document
-	    connection.setDoOutput(true);
-	    System.out.println("\n\nURL Request Type: " + httpRequestType);
-	    System.out.println("URL Parameters: " + urlParam); */
 	}
 
 	/**
@@ -72,56 +84,80 @@ public class VirtualClient extends Thread {
 	/**
 	 * Runs Virtual Client by sending requests
 	 */
-	public void run(){
-
+	public synchronized void run(){
+		resetTimers();
 		while(runTime < maxRunTime){
+			timeStart = System.currentTimeMillis();
+			sendRequest();
+			//simulateSendRequest();
 			try {
-				timeStart = System.currentTimeMillis();
-				//System.out.println("Virtual Client #" + vcID + ": Running");
-
-				sleepTime = r.nextInt(1000);
-				this.sleep(sleepTime);
-
-				responseTime = System.currentTimeMillis() - timeStart;
-				
-				runTime += responseTime;
-				responseTimeAvg += responseTime;
-				requestsSent++;
+				this.sleep(200);
 			} catch (InterruptedException e) {
-				System.out.println("Could not sleep thread #" + vcID);
+				
 			}
 		}
 		responseTimeAvg /= requestsSent;
-		
-		System.out.println("VC #" + vcID + " - AvgResponseTime = " + responseTimeAvg);
-		
+		System.out.println("VC #" + vcID + " - AvgResponseTime = " + responseTimeAvg + " - Errors: " + errors);
+	}
+	
+	public long getResponseTime(){
+		return responseTimeAvg;
+	}
 
-		//Send Request
-		/*
+	@SuppressWarnings("unused")
+	//Simulate the request by setting response time to a random int from 0 to 1000 (ms)
+	private void simulateSendRequest(){
+		try {
+			timeStart = System.currentTimeMillis();
+			//System.out.println("Virtual Client #" + vcID + ": Running");
+
+			sleepTime = r.nextInt(1000);
+			this.sleep(sleepTime);
+			updateTimeTaken();
+
+		} catch (InterruptedException e) {
+			System.out.println("Could not sleep thread #" + vcID);
+		}
+	}
+
+	/**
+	 * Evaluate responseTime, runTime, and increase requestsSent by 1
+	 */
+	private void updateTimeTaken(){
+		responseTime = System.currentTimeMillis() - timeStart;
+		runTime += responseTime;
+		responseTimeAvg += responseTime;
+		requestsSent++;
+	}
+
+	/**
+	 * Send Request to the loaded connection
+	 */
+	private synchronized void sendRequest(){
 		try {
 
-			//oStream = new DataOutputStream(connection.getOutputStream());
-			//oStream.writeBytes(urlParam);
-			//oStream.close();
+			//Send Request
+			loadConnection();
+			oStream = new DataOutputStream(connection.getOutputStream());
+			oStream.writeBytes(urlParam);
+			oStream.close();
 
-			//BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
 			//Wait for response
 			try {
 				iStream = connection.getInputStream();
 				iStream.read();
-				responseTime = System.currentTimeMillis() - timeStart;
-				System.out.println("Time taken: " + responseTime + "ms");
+
+				updateTimeTaken();
+				//System.out.println(this.thread.getName() + " - " + urlPath + " -> " + httpRequestType + " -> " + urlParam + " |||| " +"Time taken: " + responseTime + "ms");
 			} catch (IOException e1) {
-				responseTime = System.currentTimeMillis() - timeStart;
-				System.out.println("Time taken: " + responseTime + "ms");
+				updateTimeTaken();
+				errors++;
+				System.out.println("Error - Time taken: " + responseTime + "ms");
 				e1.printStackTrace();
 			}
-
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		 */
 	}
 
 }

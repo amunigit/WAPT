@@ -1,0 +1,8 @@
+#BaseConfig Properties
+configName=Html Config
+configDesc=The Html config file
+targetPath=http://www.google.com.au
+virtualClients=1
+testDuration=5
+requestType=POST
+urlParameters=/search?q=query+string&site=default_collection&client=default_frontend HTTP/1.1;

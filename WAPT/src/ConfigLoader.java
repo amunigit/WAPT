@@ -18,8 +18,10 @@ public class ConfigLoader {
 			System.out.println("File not found.");
 		}
 		
-		if(prop.getProperty("configName").equals("Basic Config")){
+		//BasicConfig class type
+		if(prop.getProperty("configClass").equals("BasicConfig")){
 				Config config = new Config(prop.getProperty("configName"),
+						prop.getProperty("configClass"),
 						prop.getProperty("configDesc"),
 						prop.getProperty("targetPath"),
 						Integer.parseInt(prop.getProperty("virtualClients")),
@@ -27,8 +29,10 @@ public class ConfigLoader {
 				return config;
 		}
 		
-	    if(prop.getProperty("configName").equals("Html Config")){
+		//HTMLconfig class type
+	    if(prop.getProperty("configClass").equals("HTMLConfig")){
 	    	HTMLConfig config = new HTMLConfig(prop.getProperty("configName"),
+	    			prop.getProperty("configClass"),
 					prop.getProperty("configDesc"),
 					prop.getProperty("targetPath"),
 					Integer.parseInt(prop.getProperty("virtualClients")),
@@ -37,6 +41,13 @@ public class ConfigLoader {
 					prop.getProperty("urlParameters"));
 	    	return config;
 	    }
+	    
+	    /*
+	    //Add desired config, use above for guidance
+	    if(prop.getProperty("").equals("")){
+	    	
+	    }
+	    */
 		return null;
 	}
 	

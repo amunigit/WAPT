@@ -5,8 +5,8 @@ public class HTMLConfig extends Config {
 	private String requestType;
 	private String urlParam;
 	
-	public HTMLConfig(String cN, String cD, String tP, int vC, int tD, String rT, String uParam) {
-		super(cN, cD, tP, vC, tD);
+	public HTMLConfig(String cN, String cC, String cD, String tP, int vC, int tD, String rT, String uParam) {
+		super(cN, cC, cD, tP, vC, tD);
 		this.requestType = rT;
 		this.urlParam = uParam;
 	}

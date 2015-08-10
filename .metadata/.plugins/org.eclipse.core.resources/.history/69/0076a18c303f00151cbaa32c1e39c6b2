@@ -1,0 +1,11 @@
+#BaseConfig Properties
+configName=Html Config
+configClass=HTMLConfig
+configDesc=The jisho config file
+targetPath=http://www.jisho.org 
+#http://www.google.com.au
+virtualClients=3
+testDuration=2000
+requestType=POST
+urlParameters=/search/hello
+#urlParameters=/search?q=query+string&site=default_collection&client=default_frontend HTTP/1.0;

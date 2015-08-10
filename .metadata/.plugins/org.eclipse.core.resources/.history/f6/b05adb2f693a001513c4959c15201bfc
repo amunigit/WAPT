@@ -1,8 +1,0 @@
-#BaseConfig Properties
-configName=Html Config
-configDesc=The Html config file
-targetPath=www.google.com.au
-virtualClients=1
-testDuration=5
-requestType=POST
-

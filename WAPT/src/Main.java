@@ -12,15 +12,20 @@ public class Main {
 
 	private static Scanner in = new Scanner(System.in);
 	private static ConfigLoader cL = new ConfigLoader();
+	
 	private static Config config;
 	private static HTMLConfig htmlConfig;
-	private static double programVersion = 0.5;
+	//private static xConfig xConfig; //Add your own
+	
+	private static double programVersion = 0.9;
 	private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 	private static Calendar cal = Calendar.getInstance(); 
 	private static File resourceFolder = new File("Resources");
 	private static String[] resourceFolderFileArray;
+	
 	private static VirtualClientGenerator vCG;
 
+	
 	public static void main(String[] args) {
 		getConfigList();
 		
@@ -57,15 +62,13 @@ public class Main {
 		System.out.println("Program Menu");
 		System.out.println("1. Load config file");
 		System.out.println("2. Enter config file details");
-		System.out.println("3. Run");
-		System.out.println("4. Exit");
+		System.out.println("3. Exit");
 		System.out.print(">"); 
 		menuChoice = inputCheckIsInt();
 		switch(menuChoice){
 		case 1:  configFileName();break;
 		case 2:  System.out.println("input 2");break;
 		case 3:  System.out.println("input 3");break;
-		case 4:  System.out.println("input 4");break;
 		default: System.out.println("Please input a number from 1 to 4");
 		}
 	}
@@ -107,7 +110,7 @@ public class Main {
 		clearConsole();
 		int configMenuChoice = 0;
 		System.out.println("\nConfig Run Menu");
-		System.out.println("1. Run " + config.getConfigName());
+		System.out.println("1. Run " + config.getConfigClass());
 		System.out.println("2. Choose different Config");
 		System.out.println("3. Main Menu");
 		configMenuChoice = inputCheckIsInt();
@@ -125,7 +128,8 @@ public class Main {
 	public static void runConfig(){
 		System.out.println(config.getConfigName());
 		vCG = null;
-		if(config.getConfigName().equals("Html Config")){
+		//For HTMLConfig
+		if(config.getConfigClass().equals("HTMLConfig")){
 			htmlConfig = (HTMLConfig) config;
 			//VirtualClient vc = new VirtualClient(1, htmlConfig.getTargetPath(), htmlConfig.getTestDuration(), htmlConfig.getRequestType(), htmlConfig.getUrlParam());
 			vCG = new VirtualClientGenerator(htmlConfig.getVirtualClients(), htmlConfig);
@@ -178,9 +182,7 @@ public class Main {
 			}
 		}
 		catch (final Exception e)
-		{
-			//  Handle any exceptions.
-		}
+		{}
 	}
 
 	/**

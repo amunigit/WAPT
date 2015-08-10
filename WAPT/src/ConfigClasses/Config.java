@@ -3,13 +3,15 @@ package ConfigClasses;
 public class Config {
 
 	private String configName; //Config Name
+	private String configClass; //Desired Config class to load
 	private String configDesc; //Config Description
 	private String targetPath; //Request Target
 	private int virtualClients; //Number of virtual clients to generate
 	private int testDuration; //Length of test
 	
-	public Config (String cN, String cD, String tP, int vC, int tD){
+	public Config (String cN, String cC, String cD, String tP, int vC, int tD){
 		this.configName = cN;
+		this.configClass = cC;
 		this.configDesc = cD;
 		this.targetPath = tP;
 		this.virtualClients = vC;
@@ -22,6 +24,10 @@ public class Config {
 
 	public void setConfigName(String configName) {
 		this.configName = configName;
+	}
+	
+	public String getConfigClass(){
+		return configClass;
 	}
 
 	public String getConfigDesc() {
