@@ -1,8 +1,0 @@
-#BaseConfig Properties
-configName=Html Config
-configDesc=The Html config file
-targetPath=http://www.google.com.au
-virtualClients=1
-testDuration=5
-requestType=GET
-urlParameters=/search?q=bill+material&output=xml&client=test&site=operations HTTP/1.0;
