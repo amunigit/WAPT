@@ -17,7 +17,7 @@ public class Main {
 	private static HTMLConfig htmlConfig;
 	//private static xConfig xConfig; //Add your own
 	
-	private static double programVersion = 0.9;
+	private static double programVersion = 1.0;
 	private static DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm"); 
 	private static Calendar cal = Calendar.getInstance(); 
 	private static File resourceFolder = new File("Resources");
@@ -124,18 +124,30 @@ public class Main {
 	
 	/**
 	 * Run chosen configuration
+	 * Add the methods for your own config files
 	 */
 	public static void runConfig(){
-		System.out.println(config.getConfigName());
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		System.out.println("Running: " + config.getConfigName());
+		System.out.println("Config Class: " + config.getConfigClass());
+		System.out.println("Clients: " + config.getVirtualClients());
+		System.out.println("Path: " + config.getTargetPath());
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		vCG = null;
-		//For HTMLConfig
+		
+		//For HTMLConfig files, that conform to HTMLConfig class file
 		if(config.getConfigClass().equals("HTMLConfig")){
 			htmlConfig = (HTMLConfig) config;
-			//VirtualClient vc = new VirtualClient(1, htmlConfig.getTargetPath(), htmlConfig.getTestDuration(), htmlConfig.getRequestType(), htmlConfig.getUrlParam());
 			vCG = new VirtualClientGenerator(htmlConfig.getVirtualClients(), htmlConfig);
 			vCG.runGenerator();
-		} else {
-			System.out.println("Other");
+		} 
+		//Basic Config file 
+		else if(config.getConfigClass().equals("BasicConfig")){
+			System.out.println("Basic Config. Must use this class as superconstructor for custom config files");
+		} 
+		//Add your own
+		else {
+			System.out.println();
 		}
 	}
 

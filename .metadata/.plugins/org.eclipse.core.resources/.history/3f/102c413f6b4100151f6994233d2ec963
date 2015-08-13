@@ -1,0 +1,10 @@
+#BaseConfig Properties
+configName=Html Config 2
+configClass=HTMLConfig
+configDesc=The DuckDuckGo config file
+targetPath=http://duckduckgo.com
+#http://www.google.com.au
+virtualClients=5
+testDuration=3000
+requestType=POST
+urlParameters=/?q=hello

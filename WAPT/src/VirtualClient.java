@@ -6,7 +6,7 @@ import java.util.Random;
  * The VirtualClient that is generated to send periodic requests
  *
  */
-public class VirtualClient extends Thread {
+public class VirtualClient implements Runnable {
 	private Thread thread;
 	private int vcID; 				//Virtual Client ID
 	private String urlPath;
@@ -19,6 +19,8 @@ public class VirtualClient extends Thread {
 	private long responseTime;	
 	private long responseTimeAvg = 0;
 	private long requestsSent = 0;
+	private long maxResponseTime = 0;
+	private long minResponseTime = 9999999;
 	private int sleepTime = 0;
 	private int errors = 0;
 
@@ -91,18 +93,15 @@ public class VirtualClient extends Thread {
 			sendRequest();
 			//simulateSendRequest();
 			try {
-				this.sleep(200);
+				Thread.sleep(200);
 			} catch (InterruptedException e) {
 				
 			}
 		}
 		responseTimeAvg /= requestsSent;
-		System.out.println("VC #" + vcID + " - AvgResponseTime = " + responseTimeAvg + " - Errors: " + errors);
+		//System.out.println("VC #" + vcID + " - AvgResponseTime = " + responseTimeAvg + " - Errors: " + errors);
 	}
 	
-	public long getResponseTime(){
-		return responseTimeAvg;
-	}
 
 	@SuppressWarnings("unused")
 	//Simulate the request by setting response time to a random int from 0 to 1000 (ms)
@@ -112,7 +111,7 @@ public class VirtualClient extends Thread {
 			//System.out.println("Virtual Client #" + vcID + ": Running");
 
 			sleepTime = r.nextInt(1000);
-			this.sleep(sleepTime);
+			Thread.sleep(sleepTime);
 			updateTimeTaken();
 
 		} catch (InterruptedException e) {
@@ -125,6 +124,11 @@ public class VirtualClient extends Thread {
 	 */
 	private void updateTimeTaken(){
 		responseTime = System.currentTimeMillis() - timeStart;
+		if(responseTime > maxResponseTime){
+			maxResponseTime = responseTime;
+		} else if(responseTime < minResponseTime) {
+			minResponseTime = responseTime;
+		}
 		runTime += responseTime;
 		responseTimeAvg += responseTime;
 		requestsSent++;
@@ -158,6 +162,22 @@ public class VirtualClient extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public long getMaxResponseTime(){
+		return maxResponseTime;
+	}
+	
+	public long getMinResponseTime(){
+		return minResponseTime;
+	}
+
+	public long getAvgResponseTime(){
+		return responseTimeAvg;
+	}
+	
+	public int getErrors(){
+		return errors;
 	}
 
 }
