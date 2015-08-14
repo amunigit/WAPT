@@ -132,6 +132,7 @@ public class Main {
 		System.out.println("Config Class: " + config.getConfigClass());
 		System.out.println("Clients: " + config.getVirtualClients());
 		System.out.println("Path: " + config.getTargetPath());
+		System.out.println("Duration: " + config.getTestDuration() + "ms");
 		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 		vCG = null;
 		

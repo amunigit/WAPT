@@ -12,9 +12,11 @@ public class VirtualClient implements Runnable {
 	private String urlPath;
 	private URL url; 				//URL to send requests
 	private String urlParam;
+	private volatile boolean run = true;
 
-	private int maxRunTime; 		//Maximum time to send and receive requests
-	private long timeStart;			//Seconds
+	private long maxRunTime; 		//Maximum time to send and receive requests
+	private long timeStart;			
+	private long threadStartTime;
 	private long runTime = 0;
 	private long responseTime;	
 	private long responseTimeAvg = 0;
@@ -36,14 +38,15 @@ public class VirtualClient implements Runnable {
 		maxRunTime = rTime;
 		httpRequestType = requestType;
 		urlParam = urlP;
+		resetTimers();
 	}
-	
+
 	private void resetTimers(){
 		runTime = 0;
 		responseTimeAvg = 0;
 		requestsSent = 0;
 	}
-	
+
 	/**
 	 * Load connection settings
 	 * Must be run if not simulating requests via simulateSendRequest(); i.e. Calling sendRequest();
@@ -64,8 +67,6 @@ public class VirtualClient implements Runnable {
 			connection.setRequestProperty("Content-Language", "en-US");  
 			connection.setUseCaches(false);
 			connection.setDoOutput(true); //We want to send requests
-			//System.out.println("\n\nURL Request Type: " + httpRequestType);
-			//System.out.println("URL Parameters: " + urlParam);
 		} catch (IOException e) {
 			System.out.println("Error opening Http Url Connection.");
 		}
@@ -74,7 +75,7 @@ public class VirtualClient implements Runnable {
 	/**
 	 * Start the Virtual Client
 	 */
-	public void start ()
+	public void start()
 	{
 		if (thread == null)
 		{
@@ -86,30 +87,36 @@ public class VirtualClient implements Runnable {
 	/**
 	 * Runs Virtual Client by sending requests
 	 */
-	public synchronized void run(){
-		resetTimers();
-		while(runTime < maxRunTime){
-			timeStart = System.currentTimeMillis();
-			sendRequest();
-			//simulateSendRequest();
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				
+	@Override
+	public void run(){
+		threadStartTime = System.currentTimeMillis();
+		while(run){
+
+			while(runTime < maxRunTime){
+				timeStart = System.currentTimeMillis();
+				sendRequest();
+				//simulateSendRequest();
+				try {
+					sleepTime = r.nextInt(1000);
+					Thread.sleep(sleepTime);
+				} catch (InterruptedException e) {
+
+				}
 			}
+			responseTimeAvg = responseTimeAvg/requestsSent;
+			if(requestsSent <= 1){
+				minResponseTime = maxResponseTime;
+			}
+			run=false;
 		}
-		responseTimeAvg /= requestsSent;
-		//System.out.println("VC #" + vcID + " - AvgResponseTime = " + responseTimeAvg + " - Errors: " + errors);
 	}
-	
+
 
 	@SuppressWarnings("unused")
 	//Simulate the request by setting response time to a random int from 0 to 1000 (ms)
 	private void simulateSendRequest(){
 		try {
 			timeStart = System.currentTimeMillis();
-			//System.out.println("Virtual Client #" + vcID + ": Running");
-
 			sleepTime = r.nextInt(1000);
 			Thread.sleep(sleepTime);
 			updateTimeTaken();
@@ -129,7 +136,7 @@ public class VirtualClient implements Runnable {
 		} else if(responseTime < minResponseTime) {
 			minResponseTime = responseTime;
 		}
-		runTime += responseTime;
+		runTime = System.currentTimeMillis() - threadStartTime;
 		responseTimeAvg += responseTime;
 		requestsSent++;
 	}
@@ -152,22 +159,22 @@ public class VirtualClient implements Runnable {
 				iStream.read();
 
 				updateTimeTaken();
+				System.out.println(getAvgResponseTime());
 				//System.out.println(this.thread.getName() + " - " + urlPath + " -> " + httpRequestType + " -> " + urlParam + " |||| " +"Time taken: " + responseTime + "ms");
 			} catch (IOException e1) {
 				updateTimeTaken();
 				errors++;
-				System.out.println("Error - Time taken: " + responseTime + "ms");
 				e1.printStackTrace();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public long getMaxResponseTime(){
 		return maxResponseTime;
 	}
-	
+
 	public long getMinResponseTime(){
 		return minResponseTime;
 	}
@@ -175,9 +182,13 @@ public class VirtualClient implements Runnable {
 	public long getAvgResponseTime(){
 		return responseTimeAvg;
 	}
-	
+
 	public int getErrors(){
 		return errors;
+	}
+
+	public long getNoOfRequestsSent(){
+		return requestsSent;
 	}
 
 }
